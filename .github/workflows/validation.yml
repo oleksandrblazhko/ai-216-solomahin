@@ -21,12 +21,13 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install ajv-cli
-        run: npm install -g ajv-cli
+      - name: Install ajv-cli and ajv-formats
+        run: |
+          npm install -g ajv-cli ajv-formats
 
       - name: Validate JSON files
         run: |
-          ajv validate -s 3-AutomatedTesting/3.1-Validation/test_samples/vote.schema.json -d "3-AutomatedTesting/3.1-Validation/test_samples/**/vote_*.json"
+          ajv validate -c ajv-formats -s 3-AutomatedTesting/3.1-Validation/test_samples/vote.schema.json -d "3-AutomatedTesting/3.1-Validation/test_samples/**/vote_*.json"
 
       - name: Install sqlfluff
         run: pip install sqlfluff
