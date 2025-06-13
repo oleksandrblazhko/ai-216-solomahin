@@ -27,7 +27,7 @@ jobs:
 
       - name: Validate JSON files
         run: |
-          ajv validate -c ajv-formats -s 3-AutomatedTesting/3.1-Validation/test_samples/vote.schema.json -d "3-AutomatedTesting/3.1-Validation/test_samples/**/vote_*.json"
+          ajv validate -c ajv-formats -s 3-AutomatedTesting/3.1-Validation/test_samples/vote.schema.json -d "3-AutomatedTesting/3.1-Validation/test_samples/valid/vote_*.json"
 
       - name: Install sqlfluff
         run: pip install sqlfluff
