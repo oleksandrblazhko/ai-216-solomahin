@@ -1,0 +1,71 @@
+@startuml
+entity Users {
+  * id : INTEGER <<PK>>
+  --
+  username : TEXT
+  email : TEXT
+  password_hash : TEXT
+  personal_key : TEXT
+  registration_date : DATETIME
+  is_admin : BOOLEAN
+}
+
+entity Elections {
+  * id : INTEGER <<PK>>
+  --
+  title : TEXT
+  description : TEXT
+  start_date : DATETIME
+  end_date : DATETIME
+  status : TEXT
+  created_by : INTEGER <<FK>>
+}
+
+entity Candidates {
+  * id : INTEGER <<PK>>
+  --
+  user_id : INTEGER <<FK>>
+  status : TEXT
+  program : TEXT
+  application_date : DATETIME
+}
+
+entity Votes {
+  * id : INTEGER <<PK>>
+  --
+  election_id : INTEGER <<FK>>
+  voter_id : INTEGER <<FK>>
+  candidate_id : INTEGER <<FK>>
+  timestamp : DATETIME
+  hash : TEXT
+}
+
+entity Blocks {
+  * id : INTEGER <<PK>>
+  --
+  hash : TEXT
+  prev_hash : TEXT
+  merkle_root : TEXT
+  timestamp : DATETIME
+}
+
+entity Blockchain {
+  * id : INTEGER <<PK>>
+  --
+  name : TEXT
+}
+
+entity MerkleTree {
+  * id : INTEGER <<PK>>
+  --
+  block_id : INTEGER <<FK>>
+  root_hash : TEXT
+}
+
+Elections::created_by --> Users::id
+Candidates::user_id --> Users::id
+Votes::voter_id --> Users::id
+Votes::election_id --> Elections::id
+Votes::candidate_id --> Candidates::id
+MerkleTree::block_id --> Blocks::id
+@enduml
