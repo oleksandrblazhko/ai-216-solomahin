@@ -1,0 +1,47 @@
+@startuml
+
+abstract class User {
+  +id: int
+  +email: string
+  +password: string
+}
+
+class Voter {
+  +vote(election: Election): Vote
+}
+
+class Admin {
+  +createElection(): Election
+  +addCandidate(election: Election, candidate: Candidate): void
+}
+
+User <|-- Voter
+User <|-- Admin
+
+class Election {
+  +id: int
+  +title: string
+  +startDate: datetime
+  +endDate: datetime
+}
+
+class Candidate {
+  +id: int
+  +name: string
+}
+
+class Vote {
+  +id: int
+  +timestamp: datetime
+}
+
+class Blockchain {
+  +writeVote(vote: Vote): bool
+}
+
+Voter --> Vote
+Vote --> Election
+Vote --> Candidate
+Vote --> Blockchain
+
+@enduml
