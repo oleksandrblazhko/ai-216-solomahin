@@ -43,6 +43,8 @@ JSON:
 - `vote_valid.json` — коректний файл голосу з усіма обов’язковими полями;
 - `vote_invalid.json` — JSON із помилками типів або пропущеними полями.
 
+![JSON Validation](screenshots/json-validation.png)
+
 SQL:
 - `create_table_valid.sql` — правильна SQL-структура таблиці `votes`;
 - `create_table_invalid.sql` — SQL із синтаксичними помилками.
