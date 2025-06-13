@@ -1,0 +1,69 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class User {
+  - username: String
+  - email: String
+  - passwordHash: String
+  - personalKey: String
+  - registrationDate: Date
+}
+
+class Voter {
+}
+
+class Admin {
+}
+
+User <|-- Voter
+User <|-- Admin
+
+class Application {
+  - programText: String
+  - status: String
+  - applicationDate: Date
+}
+
+class Candidate {
+  - status: String
+  - program: String
+}
+
+class Election {
+  - title: String
+  - description: String
+  - startDate: Date
+  - endDate: Date
+  - status: String
+}
+
+class Vote {
+  - timestamp: Date
+  - hash: String
+}
+
+class Block {
+  - hash: String
+  - prevHash: String
+  - merkleRoot: String
+  - timestamp: Date
+}
+
+class Blockchain {
+}
+
+class MerkleTree {
+  - rootHash: String
+}
+
+User --> Vote : casts >
+User --> Application : submits >
+Admin --> Election : creates >
+Election --> Candidate : includes >
+Election --> Vote : collects >
+Candidate <-- Application : represents >
+Blockchain --> Block : consists of >
+Block --> Vote : contains >
+Block --> MerkleTree : uses >
+
+@enduml
