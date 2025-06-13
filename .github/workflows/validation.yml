@@ -34,4 +34,5 @@ jobs:
 
       - name: Lint SQL files
         run: |
-          sqlfluff lint 3-AutomatedTesting/3.1-Validation/test_samples/**/*.sql
+          sqlfluff lint --dialect sqlite 3-AutomatedTesting/3.1-Validation/test_samples/**/*.sql
+
