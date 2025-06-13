@@ -1,0 +1,7 @@
+{
+  "electionId": 1,
+  "voterId": 42,
+  "candidateId": 7,
+  "timestamp": "2025-06-13T12:30:00Z",
+  "hash": "abc123def456"
+}
