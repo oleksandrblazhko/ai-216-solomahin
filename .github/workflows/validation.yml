@@ -1,0 +1,47 @@
+name: Validate Code and Schemas
+
+on:
+  push:
+    paths:
+      - '3-AutomatedTesting/**'
+  pull_request:
+    paths:
+      - '3-AutomatedTesting/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install ajv-cli and ajv-formats
+        run: |
+          npm install -g ajv-cli ajv-formats
+
+      - name: Validate JSON files
+        run: |
+          ajv validate -c ajv-formats -s 3-AutomatedTesting/3.1-Validation/test_samples/vote.schema.json -d "3-AutomatedTesting/3.1-Validation/test_samples/valid/vote_*.json"
+
+      - name: Install sqlfluff
+        run: pip install sqlfluff
+
+      - name: Lint SQL files
+        run: |
+          sqlfluff lint --dialect sqlite 3-AutomatedTesting/3.1-Validation/test_samples/valid/*.sql
+
+      - name: Show versions of installed tools
+        run: |
+          echo "Node.js:" && node -v
+          echo "npm:" && npm -v
+          echo "Python:" && python3 --version
+          echo "pip:" && pip --version
+          echo "SQLFluff:" && sqlfluff --version    
+      
+     
